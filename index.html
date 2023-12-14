@@ -1,29 +1,122 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página de Teste</title>
     <style>
         body {
-            margin: 0;
-            padding: 0;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            font-size: 1.3em;
             background-color: black;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
+            color: white;
+            margin: 20px 0 0;
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        #texto {
+        .input-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center; /* Adicionado para alinhar verticalmente */
+            margin-bottom: 10px;
+        }
+
+        input {
+            font-size: 1em;
+            background-color: black;
             color: white;
-            font-size: 5vw; /* Tamanho de fonte responsivo em relação à largura da viewport */
-            text-align: center;
+            border: none;
+            padding: 12px;
+            text-align: right;
+            width: calc(50% - 5px);
+            box-sizing: border-box;
+            margin-bottom: 5px;
+        }
+
+        .unit-label {
+            font-size: 1em;
+            color: white;
+            text-align: left;
+            width: calc(50% - 5px);
+            box-sizing: border-box;
+            margin-bottom: 5px;
+        }
+
+        table {
             width: 100%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            background-color: black;
+        }
+
+        th, td {
+            padding: 10px;
+            color: white;
+        }
+
+        th {
+            background-color: #333;
         }
     </style>
 </head>
 <body>
-    <div id="texto">TESTE</div>
+
+    <div class="input-container">
+        <input type="text" id="coffeeAmount" placeholder="Café (g)" oninput="calculateWaterAmount()" pattern="[0-9]*" inputmode="numeric">
+        <div class="unit-label">gramas de café</div>
+    </div>
+
+    <table id="waterTable">
+        <thead>
+            <tr>
+                <th>Tempo</th>
+                <th>Água</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        function calculateWaterAmount() {
+            var coffeeAmount = document.getElementById('coffeeAmount').value;
+            coffeeAmount = parseFloat(coffeeAmount.replace(',', '.'));
+
+            var times = [0, 45, 90, 135, 165];
+            var waterTable = document.getElementById('waterTable');
+            var tbody = waterTable.getElementsByTagName('tbody')[0];
+            tbody.innerHTML = '';
+
+            times.forEach(function (time) {
+                var waterAmount = parseFloat((coffeeAmount * getMultiplier(time)).toFixed(1));
+                var row = tbody.insertRow();
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                cell1.textContent = formatTime(time);
+                cell2.textContent = waterAmount + "g";
+            });
+        }
+
+        function getMultiplier(timeInSeconds) {
+            if (timeInSeconds < 45) return 2.5;
+            else if (timeInSeconds < 90) return 6;
+            else if (timeInSeconds < 135) return 9;
+            else if (timeInSeconds < 165) return 12;
+            else return 15;
+        }
+
+        function formatTime(seconds) {
+            var minutes = Math.floor(seconds / 60);
+            var remainingSeconds = seconds % 60;
+            return `${padZero(minutes)}:${padZero(remainingSeconds)}`;
+        }
+
+        function padZero(value) {
+            return value < 10 ? '0' + value : value;
+        }
+    </script>
+
 </body>
 </html>
