@@ -90,7 +90,7 @@
             tbody.innerHTML = '';
 
             times.forEach(function (time) {
-                var waterAmount = parseFloat((coffeeAmount * getMultiplier(time)).toFixed(1));
+                var waterAmount = Math.round(coffeeAmount * getMultiplier(time));
                 var row = tbody.insertRow();
                 var cell1 = row.insertCell(0);
                 var cell2 = row.insertCell(1);
