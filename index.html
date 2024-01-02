@@ -100,11 +100,11 @@
         }
 
         function getMultiplier(timeInSeconds) {
-            if (timeInSeconds < 45) return 2;
-            else if (timeInSeconds < 70) return 3;
-            else if (timeInSeconds < 90) return 4;
-            else if (timeInSeconds < 110) return 5;
-            else return 6;
+            if (timeInSeconds < 45) return 3.33; // 50g para 15g de café
+            else if (timeInSeconds < 70) return 6.67; // 100g para 15g de café
+            else if (timeInSeconds < 90) return 10; // 150g para 15g de café
+            else if (timeInSeconds < 110) return 13.33; // 200g para 15g de café
+            else return 16.67; // 250g para 15g de café
         }
 
         function formatTime(seconds) {
