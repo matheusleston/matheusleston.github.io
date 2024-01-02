@@ -20,7 +20,7 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
-            align-items: center; /* Adicionado para alinhar verticalmente */
+            align-items: center;
             margin-bottom: 10px;
         }
 
@@ -84,7 +84,7 @@
             var coffeeAmount = document.getElementById('coffeeAmount').value;
             coffeeAmount = parseFloat(coffeeAmount.replace(',', '.'));
 
-            var times = [0, 45, 90, 135, 165];
+            var times = [0, 45, 70, 90, 110];
             var waterTable = document.getElementById('waterTable');
             var tbody = waterTable.getElementsByTagName('tbody')[0];
             tbody.innerHTML = '';
@@ -100,11 +100,11 @@
         }
 
         function getMultiplier(timeInSeconds) {
-            if (timeInSeconds < 45) return 2.5;
-            else if (timeInSeconds < 90) return 6;
-            else if (timeInSeconds < 135) return 9;
-            else if (timeInSeconds < 165) return 12;
-            else return 15;
+            if (timeInSeconds < 45) return 2;
+            else if (timeInSeconds < 70) return 3;
+            else if (timeInSeconds < 90) return 4;
+            else if (timeInSeconds < 110) return 5;
+            else return 6;
         }
 
         function formatTime(seconds) {
